@@ -1,0 +1,32 @@
+{
+  "name": "jshint-teamcity",
+  "version": "1.0.0",
+  "description": "JSHint TeamCity Reporter which group by files using TeamCity Test Suite",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hongymagic/jshint-teamcity.git"
+  },
+  "keywords": [
+    "teamcity",
+    "jshint",
+    "reporter",
+    "grunt",
+    "gulp"
+  ],
+  "author": "David Hong <davidhong.code@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "mail": "davidhong.code@gmail.com",
+    "url": "https://github.com/hongymagic/jshint-teamcity/issues"
+  },
+  "homepage": "https://github.com/hongymagic/jshint-teamcity",
+  "devDependencies": {
+    "jshint": "~2.4.3",
+    "mocha": "~1.17.1",
+    "assert": "~1.1.1"
+  }
+}
