@@ -32,7 +32,7 @@ gulp.task('default', function () {
 grunt.initConfig({
 	jshint: {
 		options: {
-			reporter: require('jshint-stylish')
+			reporter: require('jshint-teamcity')
 		},
 		target: ['file.js']
 	}
@@ -43,5 +43,7 @@ grunt.registerTask('default', ['jshint']);
 ```
 
 ### License
+
+Thanks to [jshint-stylish](https://github.com/sindresorhus/jshint-stylish) and [jshint-teamcity-reporter](https://github.com/e-conomic/jshint-teamcity-reporter).
 
 MIT © David Hong
