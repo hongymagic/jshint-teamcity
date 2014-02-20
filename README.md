@@ -44,6 +44,10 @@ grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.registerTask('default', ['jshint']);
 ```
 
+### Screenshot
+
+<img src="https://photos-4.dropbox.com/t/0/AAAXuTQMyzoml2nvmRsKyS3-AS2uMVk11JmdY6butSeVeg/12/3412671/png/2048x1536/3/1392865200/0/2/Screenshot%202014-02-20%2012.12.17.png/m-7p5XrMPzmIt-UAy2SxB7DrWkFU9AZahz_OdT_tKpM" title="What it looks like in TeamCity">
+
 ### License
 
 Thanks to [jshint-stylish](https://github.com/sindresorhus/jshint-stylish) and [jshint-teamcity-reporter](https://github.com/e-conomic/jshint-teamcity-reporter).
