@@ -1,3 +1,5 @@
+<img src="https://travis-ci.org/hongymagic/jshint-teamcity.png" data-bindattr-440="440" title="Build Status Images">
+
 ## jshint-teamcity
 
 JSHint TeamCity Reporter which group by files using TeamCity Test Suites
