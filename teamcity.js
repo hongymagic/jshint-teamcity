@@ -48,13 +48,13 @@ module.exports = {
 			output.push("##teamcity[testSuiteFinished name='" + suite + "']");
 		});
 
-		// Print to process.stdout
-		console.log(output.join("\n"));
-
 		// If there were no output, tell TeamCity that tests ran successfully
 		if (output.length === 0) {
 			output.push("##teamcity[testStarted name='JSHint']");
 			output.push("##teamcity[testFinished name='JSHint']");
 		}
+
+		// Print to process.stdout
+		console.log(output.join("\n"));
 	}
 };
