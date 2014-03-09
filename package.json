@@ -15,7 +15,9 @@
     "jshint",
     "reporter",
     "grunt",
-    "gulp"
+    "gulp",
+    "gulpplugin",
+    "gruntplugin"
   ],
   "author": "David Hong <davidhong.code@gmail.com>",
   "license": "MIT",
