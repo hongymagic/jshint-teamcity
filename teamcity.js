@@ -44,6 +44,7 @@ module.exports = {
 			errors[key].forEach(function (test) {
 				output.push("##teamcity[testStarted name='" + test.name + "']");
 				output.push("##teamcity[testFailed name='" + test.name + "' message='" + test.message + "' detailed='" + test.detailed + "']");
+				output.push("##teamcity[testFinished name='" + test.name + "']");
 			});
 			output.push("##teamcity[testSuiteFinished name='" + suite + "']");
 		});
