@@ -1,6 +1,6 @@
 {
   "name": "jshint-teamcity",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "JSHint TeamCity Reporter which group by files using TeamCity Test Suite",
   "main": "index.js",
   "scripts": {
