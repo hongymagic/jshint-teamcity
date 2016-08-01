@@ -26,7 +26,7 @@ module.exports = {
 		var errorsByFileName = groupErrorsByFileName(errors);
 		var fileNames = Object.keys(errorsByFileName);
 
-		tsm.testSuiteStarted({name: REPORTER});
+		tsm.testSuiteStarted({ name: REPORTER });
 
 		fileNames.forEach(function (fileName) {
 			var fileErrors = errorsByFileName[fileName];
@@ -52,10 +52,10 @@ module.exports = {
 		// If there were no errors, tell TeamCity that tests ran successfully
 		if (errors.length === 0) {
 			tsm
-				.testStarted({ name: REPORTER})
-				.testFinished({ name: REPORTER});
+				.testStarted({ name: REPORTER })
+				.testFinished({ name: REPORTER });
 		}
 
-		tsm.testSuiteFinished({name: REPORTER});
+		tsm.testSuiteFinished({name: REPORTER });
 	}
 };
