@@ -1,1 +1,1 @@
-module.exports = require('path').join(__dirname, 'teamcity.js');
+module.exports = require('./teamcity.js');

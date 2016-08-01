@@ -1,61 +1,61 @@
 "use strict";
 
-function escapeTeamcityString(message) {
-	if (!message) {
-		return "";
-	}
+var tsm = require('teamcity-service-messages');
 
-	return message.replace(/\|/g, "||")
-		.replace(/\'/g, "|\'")
-		.replace(/\n/g, "|n")
-		.replace(/\r/g, "|r")
-		.replace(/\u0085/g, "|x")
-		.replace(/\u2028/g, "|l")
-		.replace(/\u2029/g, "|p")
-		.replace(/\[/g, "|[")
-		.replace(/\]/g, "|]");
-}
+var REPORTER = 'JSHint';
 
-module.exports = {
-	reporter: function (results) {
-		var output = [];
+var groupErrorsByFileName = function (errors) {
+	return errors.reduce(function (previous, current) {
+		var error = current.error;
+		var fileName = current.file;
 
-		// Categorise each error by filename
-		var errors = results.reduce(function (previous, current) {
-			var error = current.error;
+		previous[fileName] || (previous[fileName] = []);
 
-			if (!previous[current.file]) {
-				previous[current.file] = [];
-			}
-
-			previous[current.file].push({
-				name: escapeTeamcityString(current.file + ": line " + error.line + ", col " + error.character + ", " + error.reason),
-				message: escapeTeamcityString(error.code + ": " + error.reason),
-				detailed: escapeTeamcityString(error.evidence)
-			});
-
-			return previous;
-		}, {});
-
-		// Collate teamcity output into test suites (by filename)
-		Object.keys(errors).forEach(function (key) {
-			var suite = "JSHint: " + key;
-			output.push("##teamcity[testSuiteStarted name='" + suite + "']");
-			errors[key].forEach(function (test) {
-				output.push("##teamcity[testStarted name='" + test.name + "']");
-				output.push("##teamcity[testFailed name='" + test.name + "' message='" + test.message + "' detailed='" + test.detailed + "']");
-				output.push("##teamcity[testFinished name='" + test.name + "']");
-			});
-			output.push("##teamcity[testSuiteFinished name='" + suite + "']");
+		previous[fileName].push({
+			name: error.reason + " at line " + error.line + ", col " + error.character,
+			message: error.code + ": " + error.reason,
+			detailed: error.evidence
 		});
 
-		// If there were no output, tell TeamCity that tests ran successfully
-		if (output.length === 0) {
-			output.push("##teamcity[testStarted name='JSHint']");
-			output.push("##teamcity[testFinished name='JSHint']");
+		return previous;
+	}, {});
+};
+
+module.exports = {
+	reporter: function (errors) {
+		var errorsByFileName = groupErrorsByFileName(errors);
+		var fileNames = Object.keys(errorsByFileName);
+
+		tsm.testSuiteStarted({ name: REPORTER });
+
+		fileNames.forEach(function (fileName) {
+			var fileErrors = errorsByFileName[fileName];
+
+			tsm.testSuiteStarted({ name: fileName });
+
+			fileErrors.forEach(function (error) {
+				var errorName = error.name;
+
+				tsm
+					.testStarted({ name: errorName })
+					.testFailed({
+						name: errorName,
+						message: error.message,
+						detailed: error.detailed
+					})
+					.testFinished({ name: errorName });
+			});
+
+			tsm.testSuiteFinished({ name: fileName });
+		});
+
+		// If there were no errors, tell TeamCity that tests ran successfully
+		if (errors.length === 0) {
+			tsm
+				.testStarted({ name: REPORTER })
+				.testFinished({ name: REPORTER });
 		}
 
-		// Print to process.stdout
-		console.log(output.join("\n"));
+		tsm.testSuiteFinished({name: REPORTER });
 	}
 };
