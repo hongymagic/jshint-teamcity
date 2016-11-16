@@ -22,6 +22,9 @@ var groupErrorsByFileName = function (errors) {
 };
 
 module.exports = {
+	toString: function () {
+		return __filename;
+	},
 	reporter: function (errors) {
 		var errorsByFileName = groupErrorsByFileName(errors);
 		var fileNames = Object.keys(errorsByFileName);
